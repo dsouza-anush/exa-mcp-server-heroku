@@ -280,14 +280,28 @@ Replace `your-app-name` with your Heroku app name and `YOUR_API_KEY` with your E
 
 ## Keeping Updated with Upstream 🔄
 
-This repository includes a script to help keep your Heroku deployment up to date with the original exa-mcp-server repository while preserving the Heroku-specific customizations.
+This repository **automatically updates daily** from the original exa-mcp-server repository while preserving all Heroku-specific customizations. Updates are handled through GitHub Actions.
 
-To update from the upstream repository:
+### Automatic Updates
+
+A GitHub Actions workflow runs daily to:
+- Fetch the latest changes from the original exa-mcp-server repository
+- Preserve all Heroku-specific customizations (app.json, Procfile, etc.)
+- Commit and push the updated code
+
+You can also trigger an update manually by:
+1. Going to the "Actions" tab in the GitHub repository
+2. Selecting the "Auto Update from Upstream" workflow
+3. Clicking "Run workflow"
+
+### Manual Updates
+
+If you prefer to update manually, you can use the included update script:
 
 1. Clone your forked repository:
    ```bash
-   git clone https://github.com/your-username/exa-mcp-server.git
-   cd exa-mcp-server
+   git clone https://github.com/your-username/exa-mcp-server-heroku.git
+   cd exa-mcp-server-heroku
    ```
 
 2. Run the update script:
@@ -306,7 +320,9 @@ To update from the upstream repository:
    git push heroku main
    ```
 
-The update script automatically:
-- Fetches the latest changes from the original exa-mcp-server repository
-- Preserves all Heroku-specific customizations (app.json, Procfile, etc.)
-- Handles merge conflicts to ensure a smooth update process
+The update process preserves all Heroku-specific customizations, including:
+- Heroku button configuration (app.json)
+- Process definitions (Procfile)
+- Environment variable handling
+- Heroku-specific scripts
+- Deployment instructions

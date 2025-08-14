@@ -1,0 +1,71 @@
+name: Auto Update from Upstream
+
+on:
+  schedule:
+    # Run once a day at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # Allow manual triggering
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/exa-labs/exa-mcp-server.git || true
+          git fetch upstream
+
+      - name: Save Heroku customizations
+        run: |
+          mkdir -p .temp
+          cp -f app.json .temp/ 2>/dev/null || true
+          cp -f Procfile .temp/ 2>/dev/null || true
+          git diff upstream/main -- src/index.ts > .temp/index.ts.patch 2>/dev/null || true
+          git diff upstream/main -- package.json > .temp/package.json.patch 2>/dev/null || true
+          git diff upstream/main -- README.md > .temp/readme.patch 2>/dev/null || true
+
+      - name: Merge upstream changes
+        run: |
+          # Try to merge, but don't fail the workflow if there are conflicts
+          git merge upstream/main -m "Auto-merge upstream changes" || {
+            echo "Merge conflict occurred. Aborting merge."
+            git merge --abort
+            echo "::warning::Merge conflicts detected. Manual update required."
+            exit 0
+          }
+
+      - name: Restore Heroku customizations
+        run: |
+          [ -f .temp/app.json ] && cp -f .temp/app.json ./ || true
+          [ -f .temp/Procfile ] && cp -f .temp/Procfile ./ || true
+          [ -f .temp/index.ts.patch ] && git apply .temp/index.ts.patch 2>/dev/null || true
+          [ -f .temp/package.json.patch ] && git apply .temp/package.json.patch 2>/dev/null || true
+          [ -f .temp/readme.patch ] && git apply .temp/readme.patch 2>/dev/null || true
+          rm -rf .temp
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::set-output name=changes_detected::true"
+          else
+            echo "::set-output name=changes_detected::false"
+          fi
+
+      - name: Commit and push
+        if: steps.git-check.outputs.changes_detected == 'true'
+        run: |
+          git add .
+          git commit -m "Auto-update from upstream with preserved Heroku customizations"
+          git push
