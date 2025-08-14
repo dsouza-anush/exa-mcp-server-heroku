@@ -46,8 +46,19 @@ const availableTools = {
 
 export default function ({ config }: { config: z.infer<typeof configSchema> }) {
   try {
-    // Set the API key in environment for tool functions to use
-    // process.env.EXA_API_KEY = config.exaApiKey;
+    // Check for Heroku environment variables
+    const exaApiKey = process.env.EXA_API_KEY || config.exaApiKey;
+    const enabledToolsStr = process.env.ENABLED_TOOLS;
+    const enabledTools = enabledToolsStr ? enabledToolsStr.split(',') : config.enabledTools;
+    const debug = process.env.DEBUG === 'true' || config.debug;
+    
+    // Override config with Heroku environment variables if present
+    config = {
+      ...config,
+      exaApiKey,
+      enabledTools,
+      debug
+    };
     
     if (config.debug) {
       log("Starting Exa MCP Server in debug mode");

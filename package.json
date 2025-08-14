@@ -36,7 +36,10 @@
     "watch": "tsc --watch",
     "dev": "npx @smithery/cli@latest dev",
     "inspector": "npx @modelcontextprotocol/inspector build/index.js",
-    "prepublishOnly": "npm run build:stdio"
+    "prepublishOnly": "npm run build:stdio",
+    "serve": "node ./.smithery/index.cjs",
+    "serve:mcp": "node ./.smithery/index.cjs --transport stdio",
+    "start": "node ./.smithery/index.cjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",

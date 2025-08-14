@@ -204,3 +204,106 @@ npx exa-mcp-server --list-tools
 ---
 
 Built with ❤️ by team Exa
+
+## Deploy to Heroku 🚀
+
+You can deploy this MCP server to Heroku with one click using the Heroku Button:
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/exa-labs/exa-mcp-server)
+
+### Manual Heroku Deployment
+
+If you prefer to deploy manually:
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/exa-labs/exa-mcp-server.git
+   cd exa-mcp-server
+   ```
+
+2. Create a new Heroku app:
+   ```bash
+   heroku create
+   ```
+
+3. Set your Exa API key as a config variable:
+   ```bash
+   heroku config:set EXA_API_KEY=your-api-key-here
+   ```
+
+4. Optionally, specify which tools to enable:
+   ```bash
+   heroku config:set ENABLED_TOOLS=web_search_exa,company_research_exa,crawling_exa
+   ```
+
+5. Deploy to Heroku:
+   ```bash
+   git push heroku main
+   ```
+
+### Using with Claude Desktop
+
+To use your Heroku-deployed MCP server with Claude Desktop:
+
+1. Add this to your Claude Desktop configuration file:
+
+```json
+{
+  "mcpServers": {
+    "exa_heroku": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://your-app-name.herokuapp.com/mcp"
+      ],
+      "env": {
+        "EXA_API_KEY": "your-api-key-here" 
+      }
+    }
+  }
+}
+```
+
+Replace `your-app-name` with your Heroku app name and `your-api-key-here` with your Exa API key.
+
+### Using with Claude Code CLI
+
+```bash
+claude mcp add exa_heroku -e EXA_API_KEY=YOUR_API_KEY -- npx -y mcp-remote https://your-app-name.herokuapp.com/mcp
+```
+
+Replace `your-app-name` with your Heroku app name and `YOUR_API_KEY` with your Exa API key.
+
+## Keeping Updated with Upstream 🔄
+
+This repository includes a script to help keep your Heroku deployment up to date with the original exa-mcp-server repository while preserving the Heroku-specific customizations.
+
+To update from the upstream repository:
+
+1. Clone your forked repository:
+   ```bash
+   git clone https://github.com/your-username/exa-mcp-server.git
+   cd exa-mcp-server
+   ```
+
+2. Run the update script:
+   ```bash
+   ./update-from-upstream.sh
+   ```
+
+3. Review the changes, then commit and push to your repository:
+   ```bash
+   git commit -am "Updated from upstream with Heroku customizations"
+   git push origin main
+   ```
+
+4. If you have already deployed to Heroku, update your Heroku app:
+   ```bash
+   git push heroku main
+   ```
+
+The update script automatically:
+- Fetches the latest changes from the original exa-mcp-server repository
+- Preserves all Heroku-specific customizations (app.json, Procfile, etc.)
+- Handles merge conflicts to ensure a smooth update process
