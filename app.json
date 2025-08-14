@@ -20,16 +20,18 @@
       "value": "false"
     }
   },
-  "formation": {
-    "web": {
+  "formation": [
+    {
+      "type": "web",
       "quantity": 0,
       "size": "basic"
     },
-    "mcp-exa": {
-      "quantity": 1,
+    {
+      "type": "mcp-exa", 
+      "quantity": 0,
       "size": "basic"
     }
-  },
+  ],
   "buildpacks": [
     {
       "url": "heroku/nodejs"

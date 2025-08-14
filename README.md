@@ -271,6 +271,8 @@ mcp-exa: npm run serve:mcp
 
 The `mcp-exa` process is registered with Heroku Inference, following the naming convention required by Heroku (process names must start with "mcp").
 
+Both web and mcp-exa dynos are configured to scale to 0 by default in the app.json, following Heroku's recommendation for MCP servers. When you attach this app to a Heroku Inference model, Heroku will automatically scale the MCP process as needed for tool execution.
+
 ### Using with Claude Desktop
 
 To use your Heroku-deployed MCP server with Claude Desktop:
