@@ -212,7 +212,7 @@ Built with ❤️ by team Exa
 
 You can deploy this MCP server to Heroku with one click using the Heroku Button:
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/exa-labs/exa-mcp-server)
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/dsouza-anush/exa-mcp-server-heroku)
 
 ### Manual Heroku Deployment
 
@@ -220,8 +220,8 @@ If you prefer to deploy manually:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/exa-labs/exa-mcp-server.git
-   cd exa-mcp-server
+   git clone https://github.com/dsouza-anush/exa-mcp-server-heroku.git
+   cd exa-mcp-server-heroku
    ```
 
 2. Create a new Heroku app:
@@ -243,6 +243,33 @@ If you prefer to deploy manually:
    ```bash
    git push heroku main
    ```
+
+## Using with Heroku Inference and Agents 🤖
+
+This MCP server is fully compatible with Heroku Managed Inference and Agents. To use it:
+
+1. Deploy the MCP server to Heroku using the steps above.
+
+2. Attach the MCP server to a Heroku Managed Inference and Agents chat model:
+
+   ```bash
+   # Replace APP_NAME with your Heroku app name
+   # Replace MODEL_NAME with your desired model name
+   heroku ai:models:create MODEL_NAME -a APP_NAME --as INFERENCE
+   ```
+
+3. Your MCP server will be automatically registered with Heroku Inference and its tools will be available via the `/v1/agents/heroku` endpoint.
+
+### MCP Server Configuration
+
+This server uses the following Procfile configuration for Heroku Inference:
+
+```
+web: npm run serve
+mcp-exa: npm run serve:mcp
+```
+
+The `mcp-exa` process is registered with Heroku Inference, following the naming convention required by Heroku (process names must start with "mcp").
 
 ### Using with Claude Desktop
 

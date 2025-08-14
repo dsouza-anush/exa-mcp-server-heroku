@@ -1,7 +1,7 @@
 {
   "name": "Exa MCP Server",
   "description": "A Model Context Protocol server with Exa for web search, academic paper search, and Twitter/X.com search",
-  "repository": "https://github.com/exa-labs/exa-mcp-server",
+  "repository": "https://github.com/dsouza-anush/exa-mcp-server-heroku",
   "keywords": ["mcp", "search", "websearch", "exa", "claude", "ai", "research", "papers", "linkedin"],
   "success_url": "/",
   "env": {
@@ -21,7 +21,11 @@
     }
   },
   "formation": {
-    "mcp": {
+    "web": {
+      "quantity": 0,
+      "size": "basic"
+    },
+    "mcp-exa": {
       "quantity": 1,
       "size": "basic"
     }

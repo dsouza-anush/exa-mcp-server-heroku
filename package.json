@@ -6,7 +6,7 @@
   "module": "./src/index.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/exa-labs/exa-mcp-server.git"
+    "url": "git+https://github.com/dsouza-anush/exa-mcp-server-heroku.git"
   },
   "bin": {
     "exa-mcp-server": "./.smithery/index.cjs"
@@ -39,7 +39,8 @@
     "prepublishOnly": "npm run build:stdio",
     "serve": "node ./.smithery/index.cjs",
     "serve:mcp": "node ./.smithery/index.cjs --transport stdio",
-    "start": "node ./.smithery/index.cjs"
+    "start": "node ./.smithery/index.cjs",
+    "heroku-prebuild": "npm run build:stdio"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",

@@ -1,2 +1,2 @@
 web: npm run serve
-mcp: npm run serve:mcp
+mcp-exa: npm run serve:mcp
