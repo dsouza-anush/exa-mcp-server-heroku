@@ -266,12 +266,12 @@ This server uses the following Procfile configuration for Heroku Inference:
 
 ```
 web: npm run serve
-mcp-exa: npm run serve:mcp
+mcp-search-exa: node ./stdio-server.js
 ```
 
-The `mcp-exa` process is registered with Heroku Inference, following the naming convention required by Heroku (process names must start with "mcp").
+The `mcp-search-exa` process is registered with Heroku Inference, following the naming convention required by Heroku (process names must start with "mcp"). The direct Node.js execution ensures proper stdio handling for the MCP protocol.
 
-Both web and mcp-exa dynos are configured to scale to 0 by default in the app.json, following Heroku's recommendation for MCP servers. When you attach this app to a Heroku Inference model, Heroku will automatically scale the MCP process as needed for tool execution.
+Both web and mcp-search-exa dynos are configured to scale to 0 by default in the app.json, following Heroku's recommendation for MCP servers. When you attach this app to a Heroku Inference model, Heroku will automatically scale the MCP process as needed for tool execution.
 
 ### Using with Claude Desktop
 
