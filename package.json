@@ -40,7 +40,8 @@
     "serve": "node ./.smithery/index.cjs",
     "serve:mcp": "node ./.smithery/index.cjs --transport stdio",
     "start": "node ./.smithery/index.cjs",
-    "heroku-prebuild": "npm run build:stdio"
+    "heroku-prebuild": "npm install",
+    "heroku-postbuild": "npm run build:stdio"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",
@@ -53,6 +54,6 @@
     "typescript": "^5.3.3"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "18.x"
   }
 }

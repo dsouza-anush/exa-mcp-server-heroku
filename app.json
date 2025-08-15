@@ -38,6 +38,6 @@
     }
   ],
   "scripts": {
-    "postdeploy": "npm run build"
+    "postdeploy": "npm run build:stdio"
   }
 }
