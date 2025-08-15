@@ -1,2 +1,2 @@
-web: npm run serve
-mcp-search-exa: node ./stdio-server.cjs
+web: node server.js
+mcp-search-exa: node server.js
