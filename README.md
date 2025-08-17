@@ -7,6 +7,10 @@
 
 A Model Context Protocol (MCP) server lets AI assistants like Claude use the Exa AI Search API for web searches. This setup allows AI models to get real-time web information in a safe and controlled way.
 
+<a href="https://glama.ai/mcp/servers/@dsouza-anush/exa-mcp-server-heroku">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@dsouza-anush/exa-mcp-server-heroku/badge" alt="Exa Server MCP server" />
+</a>
+
 ## Remote Exa MCP 🌐
 
 Connect directly to Exa's hosted MCP server (instead of running it locally).
